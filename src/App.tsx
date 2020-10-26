@@ -61,7 +61,7 @@ const Navigation = styled.nav`
 
 function App() {
   return (
-    <Router>
+    <Router basename="/ab-tools">
       <GlobalStyles />
       <AppWrapper>
         <Navigation>
