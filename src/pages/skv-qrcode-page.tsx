@@ -14,10 +14,15 @@ const PageWrapper = styled.div`
   display: grid;
   grid-template-columns: 300px 1fr;
 `;
-const QRWrapper = styled.div`
+const QRPagePartWrapper = styled.div`
   padding: 50px;
   display: flex;
   justify-content: center;
+`;
+const QRWrapper = styled.div`
+  position: relative;
+  width: ${QR_CODE_WIDTH}px;
+  height: ${QR_CODE_WIDTH}px;
 `;
 const Stack = styled.div`
   & > * + * {
@@ -25,8 +30,23 @@ const Stack = styled.div`
   }
 `;
 
+const DimmingOverlay = styled.div`
+  padding: 50px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0.9;
+`;
+
 const SKVQRCodePage = () => {
-  const [ocr, setOCR] = useState(() => {
+  const [ocrInput, setOCRInput] = useState(() => {
     const stored = window.localStorage.getItem(OCR_LOCAL_STORAGE_KEY);
     if (stored) {
       const parsed = parseInt(stored, 10);
@@ -37,15 +57,18 @@ const SKVQRCodePage = () => {
 
     return '';
   });
-  const [amount, setAmount] = useState('');
+  const [amountInput, setAmountInput] = useState('');
 
   const handleOCRChange = useCallback((value: string) => {
-    setOCR(value);
+    setOCRInput(value);
     window.localStorage.setItem(OCR_LOCAL_STORAGE_KEY, value);
   }, []);
   const handleAmountChange = useCallback((value: string) => {
-    setAmount(value);
+    setAmountInput(value);
   }, []);
+
+  const amount = parseFloat(amountInput);
+  const ocr = parseInt(ocrInput, 10);
 
   return (
     <PageWrapper>
@@ -61,27 +84,34 @@ const SKVQRCodePage = () => {
             label="OCR"
             type="number"
             onChange={handleOCRChange}
-            value={ocr}
+            value={ocrInput}
           />
           <TextInput
             label="Amount"
             type="number"
             onChange={handleAmountChange}
-            value={amount}
+            value={amountInput}
             step={0.1}
           />
           <div>BG kontonummer: {SKV_BG_NUMBER}</div>
         </Stack>
       </div>
-      <QRWrapper>
-        <InvoiceQRCode
-          width={QR_CODE_WIDTH}
-          iref={parseInt(ocr, 10)}
-          acc={SKV_BG_NUMBER}
-          due={parseFloat(amount)}
-          pt={PaymentMethodType.BG}
-        />
-      </QRWrapper>
+      <QRPagePartWrapper>
+        <QRWrapper>
+          <InvoiceQRCode
+            width={QR_CODE_WIDTH}
+            iref={ocr}
+            acc={SKV_BG_NUMBER}
+            due={amount}
+            pt={PaymentMethodType.BG}
+          />
+          {!Number.isFinite(amount) && (
+            <DimmingOverlay>
+              Fyll i alla fält för att få en giltig QR-kod
+            </DimmingOverlay>
+          )}
+        </QRWrapper>
+      </QRPagePartWrapper>
     </PageWrapper>
   );
 };
