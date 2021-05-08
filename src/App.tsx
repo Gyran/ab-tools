@@ -66,7 +66,7 @@ function App() {
       <GlobalStyles />
       <AppWrapper>
         <Navigation>
-          <MyNavLink to="/">Home</MyNavLink>
+          <MyNavLink to="/">Hem</MyNavLink>
           {/* <MyNavLink to="/invoice-qr">Invoice QR</MyNavLink> */}
           <MyNavLink to="/skv-qr">Skattekonto QR</MyNavLink>
           <MyNavLink to="/bokio-backup">Bokio Backup</MyNavLink>
@@ -84,8 +84,18 @@ function App() {
             </Route>
             <Route path="/">
               <div>
-                Små verktyg som kan vara smidiga för dig som driver ett AB
-                (eller annan typ av bolag).
+                <p>
+                  Små verktyg som kan vara smidiga för dig som driver ett AB
+                  (eller annan typ av bolag).
+                </p>
+                <p>
+                  Koden till denna sida finns tillgänglig på{' '}
+                  <a href="https://github.com/Gyran/ab-tools">
+                    https://github.com/Gyran/ab-tools
+                  </a>{' '}
+                  så har du några tankar eller ser något fel så hoppa gärna in
+                  där och hjälp till eller skriv en rad.
+                </p>
               </div>
             </Route>
           </Switch>
