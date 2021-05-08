@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   NavLink,
 } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import './App.css';
 import InvoiceQRCodePage from './pages/InvoiceQRCodePage';
 import SKVQRCodePage from './pages/skv-qrcode-page';

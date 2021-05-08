@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import InvoiceQRCode, {
   PaymentMethodType,
 } from '../components/invoice-qr-code.tsx';
