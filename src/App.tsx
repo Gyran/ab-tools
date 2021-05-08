@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import './App.css';
 import InvoiceQRCodePage from './pages/InvoiceQRCodePage';
 import SKVQRCodePage from './pages/skv-qrcode-page';
+import BokioBackupPage from './pages/bokio-backup-page';
 import Theme from './styling';
 import GlobalStyles from './styling/global-styles';
 
@@ -68,6 +69,7 @@ function App() {
           <MyNavLink to="/">Home</MyNavLink>
           {/* <MyNavLink to="/invoice-qr">Invoice QR</MyNavLink> */}
           <MyNavLink to="/skv-qr">Skattekonto QR</MyNavLink>
+          <MyNavLink to="/bokio-backup">Bokio Backup</MyNavLink>
         </Navigation>
         <PageWrapper>
           <Switch>
@@ -76,6 +78,9 @@ function App() {
             </Route>
             <Route path="/skv-qr">
               <SKVQRCodePage />
+            </Route>
+            <Route path="/bokio-backup">
+              <BokioBackupPage />
             </Route>
             <Route path="/">
               <div>

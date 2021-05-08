@@ -14,6 +14,7 @@ const Theme = {
     Primary: Colors.Sunglow,
     Background: Colors.RoyalPurple,
     Text: Colors.White,
+    Link: Colors.Sunglow,
   },
   Spacing: {
     ContentMaxWidth: 960,
