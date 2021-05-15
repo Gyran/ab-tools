@@ -10,6 +10,7 @@ import './App.css';
 import InvoiceQRCodePage from './pages/InvoiceQRCodePage';
 import SKVQRCodePage from './pages/skv-qrcode-page';
 import BokioBackupPage from './pages/bokio-backup-page';
+import MomsSnurraPage from './pages/vat-calculator';
 import Theme from './styling';
 import GlobalStyles from './styling/global-styles';
 
@@ -70,6 +71,7 @@ function App() {
           {/* <MyNavLink to="/invoice-qr">Invoice QR</MyNavLink> */}
           <MyNavLink to="/skv-qr">Skattekonto QR</MyNavLink>
           <MyNavLink to="/bokio-backup">Bokio Backup</MyNavLink>
+          <MyNavLink to="/moms">Momssnurra</MyNavLink>
         </Navigation>
         <PageWrapper>
           <Switch>
@@ -81,6 +83,9 @@ function App() {
             </Route>
             <Route path="/bokio-backup">
               <BokioBackupPage />
+            </Route>
+            <Route path="/moms">
+              <MomsSnurraPage />
             </Route>
             <Route path="/">
               <div>

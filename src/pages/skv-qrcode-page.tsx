@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components/macro';
 import InvoiceQRCode, {
   PaymentMethodType,
 } from '../components/invoice-qr-code.tsx';
 import TextInput from '../components/text-input.tsx';
+import { Stack } from '../components/layout';
 
 const QR_CODE_WIDTH = 300;
 const SKV_BG_NUMBER = '5050-1055';
@@ -23,11 +24,6 @@ const QRWrapper = styled.div`
   position: relative;
   width: ${QR_CODE_WIDTH}px;
   height: ${QR_CODE_WIDTH}px;
-`;
-const Stack = styled.div`
-  & > * + * {
-    margin-top: 10px;
-  }
 `;
 
 const DimmingOverlay = styled.div`
