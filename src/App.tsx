@@ -71,7 +71,7 @@ function App() {
           {/* <MyNavLink to="/invoice-qr">Invoice QR</MyNavLink> */}
           <MyNavLink to="/skv-qr">Skattekonto QR</MyNavLink>
           <MyNavLink to="/bokio-backup">Bokio Backup</MyNavLink>
-          <MyNavLink to="/moms">Momssnurra</MyNavLink>
+          {/* <MyNavLink to="/moms">Momssnurra</MyNavLink> */}
         </Navigation>
         <PageWrapper>
           <Switch>
