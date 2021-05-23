@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { Stack } from '../components/layout';
-import TextInput from '../components/text-input.tsx';
+import TextInput from '../components/text-input';
 
 type Props = {};
 
@@ -56,17 +56,9 @@ const VatCalculator = (props: Props) => {
         value={(exclVat + vatSum).toString()}
         onChange={handleIncVatChange}
       />
-      <div>Moms: {Number.isFinite(vatSum) ? vatSum.toFixed(2) : '-'}</div>
+      <div>Moms: {Number.isFinite(vatSum) ? vatSum.toFixed(2) : '-'} kr</div>
     </Stack>
   );
 };
 
 export default VatCalculator;
-
-// 125 = 100 + 100 * 25%
-// inc = exl + exl * vat%
-// inc = exl(1 + vat)
-
-// exl = inc/(1 + vat)
-
-// inc/exl = 1 + 0.25 = 1.25

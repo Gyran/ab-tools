@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import InvoiceQRCode, {
   PaymentMethodType,
 } from '../components/invoice-qr-code.tsx';
-import TextInput from '../components/text-input.tsx';
+import TextInput from '../components/text-input';
 import { Stack } from '../components/layout';
 
 const QR_CODE_WIDTH = 300;
