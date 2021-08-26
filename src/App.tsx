@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, Suspense } from 'react';
 import {
   Switch,
   Route,
@@ -7,12 +7,14 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import './App.css';
-import InvoiceQRCodePage from './pages/InvoiceQRCodePage';
-import SKVQRCodePage from './pages/skv-qrcode-page';
-import BokioBackupPage from './pages/bokio-backup-page';
-import MomsSnurraPage from './pages/vat-calculator';
 import Theme from './styling';
 import GlobalStyles from './styling/global-styles';
+
+const SKVQRCodePage = React.lazy(() => import('./pages/skv-qrcode-page'));
+const BokioBackupPage = React.lazy(() => import('./pages/bokio-backup-page'));
+const MomsSnurraPage = React.lazy(() => import('./pages/vat-calculator'));
+const InvoiceQRCodePage = React.lazy(() => import('./pages/InvoiceQRCodePage'));
+const HomePage = React.lazy(() => import('./pages/home'));
 
 type MyNavLinkProps = PropsWithChildren<{
   to: string;
@@ -74,36 +76,25 @@ function App() {
           {/* <MyNavLink to="/moms">Momssnurra</MyNavLink> */}
         </Navigation>
         <PageWrapper>
-          <Switch>
-            <Route path="/invoice-qr">
-              <InvoiceQRCodePage />
-            </Route>
-            <Route path="/skv-qr">
-              <SKVQRCodePage />
-            </Route>
-            <Route path="/bokio-backup">
-              <BokioBackupPage />
-            </Route>
-            <Route path="/moms">
-              <MomsSnurraPage />
-            </Route>
-            <Route path="/">
-              <div>
-                <p>
-                  Små verktyg som kan vara smidiga för dig som driver ett AB
-                  (eller annan typ av bolag).
-                </p>
-                <p>
-                  Koden till denna sida finns tillgänglig på{' '}
-                  <a href="https://github.com/Gyran/ab-tools">
-                    https://github.com/Gyran/ab-tools
-                  </a>{' '}
-                  så har du några tankar eller ser något fel så hoppa gärna in
-                  där och hjälp till eller skriv en rad.
-                </p>
-              </div>
-            </Route>
-          </Switch>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              <Route path="/invoice-qr">
+                <InvoiceQRCodePage />
+              </Route>
+              <Route path="/skv-qr">
+                <SKVQRCodePage />
+              </Route>
+              <Route path="/bokio-backup">
+                <BokioBackupPage />
+              </Route>
+              <Route path="/moms">
+                <MomsSnurraPage />
+              </Route>
+              <Route path="/">
+                <HomePage />
+              </Route>
+            </Switch>
+          </Suspense>
         </PageWrapper>
       </AppWrapper>
     </Router>
