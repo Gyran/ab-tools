@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, Suspense } from 'react';
 import {
-  Switch,
   Route,
   BrowserRouter as Router,
   NavLink,
+  Routes,
 } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import './App.css';
@@ -41,7 +41,7 @@ const MyNavLink = (props: MyNavLinkProps) => {
   const { to, children } = props;
 
   return (
-    <StyledNavLink activeClassName="active" to={to} exact={true}>
+    <StyledNavLink activeClassName="active" to={to} end={true}>
       <span>{children}</span>
     </StyledNavLink>
   );
@@ -77,23 +77,13 @@ function App() {
         </Navigation>
         <PageWrapper>
           <Suspense fallback={<div>Loading...</div>}>
-            <Switch>
-              <Route path="/invoice-qr">
-                <InvoiceQRCodePage />
-              </Route>
-              <Route path="/skv-qr">
-                <SKVQRCodePage />
-              </Route>
-              <Route path="/bokio-backup">
-                <BokioBackupPage />
-              </Route>
-              <Route path="/moms">
-                <MomsSnurraPage />
-              </Route>
-              <Route path="/">
-                <HomePage />
-              </Route>
-            </Switch>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/invoice-qr" element={<InvoiceQRCodePage />} />
+              <Route path="/skv-qr" element={<SKVQRCodePage />} />
+              <Route path="/bokio-backup" element={<BokioBackupPage />} />
+              <Route path="/moms" element={<MomsSnurraPage />} />
+            </Routes>
           </Suspense>
         </PageWrapper>
       </AppWrapper>
