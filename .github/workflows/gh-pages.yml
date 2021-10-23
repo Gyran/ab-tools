@@ -5,26 +5,25 @@ name: github pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Use Node.js 12
-      uses: actions/setup-node@v2.4.1
-      with:
-        node-version: '12'
+      - uses: actions/checkout@v2
 
-    - run: npm ci
-    
-    - run: npm run build
+      - name: Use Node.js 12
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: '12'
 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
-    
+      - run: npm ci
+      - run: npm run test
+      - run: npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
