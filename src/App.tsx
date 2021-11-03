@@ -31,7 +31,7 @@ const StyledNavLink = styled(NavLink)`
     border-radius: 3px;
   }
 
-  &.${({ activeClassName }) => activeClassName} span,
+  &.active span,
   &:hover span {
     background-color: ${Theme.Colors.Primary};
     color: ${Theme.Colors.Background};
@@ -41,7 +41,7 @@ const MyNavLink = (props: MyNavLinkProps) => {
   const { to, children } = props;
 
   return (
-    <StyledNavLink activeClassName="active" to={to} end={true}>
+    <StyledNavLink to={to} end={true}>
       <span>{children}</span>
     </StyledNavLink>
   );
