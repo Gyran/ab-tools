@@ -15,6 +15,9 @@ const BokioBackupPage = React.lazy(() => import('./pages/bokio-backup-page'));
 const MomsSnurraPage = React.lazy(() => import('./pages/vat-calculator'));
 const InvoiceQRCodePage = React.lazy(() => import('./pages/InvoiceQRCodePage'));
 const HomePage = React.lazy(() => import('./pages/home'));
+const CalculateDecemberSalaryPage = React.lazy(
+  () => import('./pages/calculate-december-salary'),
+);
 
 type MyNavLinkProps = PropsWithChildren<{
   to: string;
@@ -73,6 +76,7 @@ function App() {
           {/* <MyNavLink to="/invoice-qr">Invoice QR</MyNavLink> */}
           <MyNavLink to="/skv-qr">Skattekonto QR</MyNavLink>
           <MyNavLink to="/bokio-backup">Bokio Backup</MyNavLink>
+          <MyNavLink to="/december-lon">Decemberlön</MyNavLink>
           {/* <MyNavLink to="/moms">Momssnurra</MyNavLink> */}
         </Navigation>
         <PageWrapper>
@@ -83,6 +87,10 @@ function App() {
               <Route path="/skv-qr" element={<SKVQRCodePage />} />
               <Route path="/bokio-backup" element={<BokioBackupPage />} />
               <Route path="/moms" element={<MomsSnurraPage />} />
+              <Route
+                path="/december-lon"
+                element={<CalculateDecemberSalaryPage />}
+              />
             </Routes>
           </Suspense>
         </PageWrapper>
