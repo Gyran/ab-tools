@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components/macro';
 import { Stack } from '../components/layout';
 import TextInput from '../components/text-input';
@@ -9,38 +9,48 @@ const Wrapper = styled.div`
   grid-template-columns: 1fr 300px;
 `;
 
-const ensureNumber = (input: any): number => {
+const ensureNumber = (input: any, fallback = 0): number => {
   const parsed = parseFloat(input);
 
   if (Number.isFinite(parsed)) {
     return parsed;
   }
 
-  return 0;
+  return fallback;
 };
 
-const StateTaxIncomeLimit = 537200;
+const StateTaxBreakPoint = 537200;
+const HuvudregelnIncomeBreakPoint = 430737;
+
+const sekFormatter = new Intl.NumberFormat('sv-SE', {
+  style: 'currency',
+  currency: 'SEK',
+});
+
+const useNumberInputState = (
+  initialInput = '',
+  fallbackValue = 0,
+): [string, React.Dispatch<React.SetStateAction<string>>, number] => {
+  const [input, handleChange] = useState(initialInput);
+  const value = ensureNumber(input, fallbackValue);
+
+  return [input, handleChange, value];
+};
 
 const CalculateDecemberSalary = () => {
-  const [bruttoLonInput, handleBruttoLonChange] = useState('');
-  const [formanerInput, handleFormanerIChange] = useState('');
-  const [ersattningarOchPensionInput, handleErsattningarOchPensionChange] =
-    useState('');
-
-  const bruttoLon = ensureNumber(bruttoLonInput);
-  const formaner = ensureNumber(formanerInput);
-  const ersattningarOchPension = ensureNumber(ersattningarOchPensionInput);
+  const [bruttoLonInput, handleBruttoLonChange, bruttoLon] =
+    useNumberInputState();
+  const [formanerInput, handleFormanerIChange, formaner] =
+    useNumberInputState();
+  const [
+    ersattningarOchPensionInput,
+    handleErsattningarOchPensionChange,
+    ersattningarOchPension,
+  ] = useNumberInputState();
 
   const totalIncome = bruttoLon + formaner + ersattningarOchPension;
 
-  const suggestedDecSalary = StateTaxIncomeLimit - totalIncome;
-
-  const sekFormatter = useMemo(() => {
-    return new Intl.NumberFormat('sv-SE', {
-      style: 'currency',
-      currency: 'SEK',
-    });
-  }, []);
+  const suggestedDecSalary = StateTaxBreakPoint - totalIncome;
 
   return (
     <PageWrapper>
@@ -48,6 +58,11 @@ const CalculateDecemberSalary = () => {
         Hur mycket behöver du ta i lön i december för att nå till gränsen
         (Inkomstår 2021)
       </h2>
+      <p>
+        Alla beräkningar är baserade på att det endast är du som tar ut lön från
+        företaget och att all lön som redovisas i formuläret är ifrån ditt
+        företag.
+      </p>
       <Wrapper>
         <Stack>
           <p>
@@ -82,11 +97,27 @@ const CalculateDecemberSalary = () => {
             <a href="https://www.skatteverket.se/privat/etjansterochblanketter/svarpavanligafragor/inkomstavtjanst/privattjansteinkomsterfaq/narskamanbetalastatliginkomstskattochhurhogarden.5.10010ec103545f243e8000166.html">
               Brytpunkt innan statlig skatt
             </a>
-            : {sekFormatter.format(StateTaxIncomeLimit)}
+            : {sekFormatter.format(StateTaxBreakPoint)}
+          </p>
+          <p>
+            Tänk också på för att kunna använda{' '}
+            <a href="https://www.bjornlunden.se/skatteplanering/s%C3%A5-maxar-du-utdelningen-enligt-312-regle__211">
+              huvudregeln för utdelning måste du minst ta ut
+            </a>{' '}
+            {sekFormatter.format(HuvudregelnIncomeBreakPoint)}. Detta beloppet
+            är baserat på att det är endast du som tar ut lön från företaget.
           </p>
           <p>
             Föreslagen bruttolön i december:{' '}
-            {sekFormatter.format(suggestedDecSalary)}
+            <b>{sekFormatter.format(suggestedDecSalary)}</b>
+          </p>
+          <p>
+            Lägsta lön för att kunna använda huvudregeln för utdelning 2022:{' '}
+            <b>
+              {sekFormatter.format(
+                Math.max(HuvudregelnIncomeBreakPoint - bruttoLon, 0),
+              )}
+            </b>
           </p>
         </Stack>
       </Wrapper>
