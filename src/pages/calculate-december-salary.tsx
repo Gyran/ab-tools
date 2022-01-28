@@ -1,13 +1,6 @@
+import { Box, Link, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import styled from 'styled-components/macro';
-import { Stack } from '../components/layout';
 import TextInput from '../components/text-input';
-
-const PageWrapper = styled.div``;
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 300px;
-`;
 
 const ensureNumber = (input: any, fallback = 0): number => {
   const parsed = parseFloat(input);
@@ -53,25 +46,25 @@ const CalculateDecemberSalary = () => {
   const suggestedDecSalary = StateTaxBreakPoint - totalIncome;
 
   return (
-    <PageWrapper>
-      <h2>
+    <Box>
+      <Typography variant="h2">
         Hur mycket behöver du ta i lön i december för att nå till gränsen
         (Inkomstår 2021)
-      </h2>
-      <p>
+      </Typography>
+      <Typography variant="body1" mt={2}>
         Alla beräkningar är baserade på att det endast är du som tar ut lön från
         företaget och att all lön som redovisas i formuläret är ifrån ditt
         företag.
-      </p>
-      <Wrapper>
-        <Stack>
-          <p>
+      </Typography>
+      <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 300px' }}>
+        <Stack mt={2} spacing={2} pr={3}>
+          <Typography variant="body1">
             Samla in samtliga{' '}
-            <a href="https://sso.skatteverket.se/ms/ms_web/page.do#/privat/skatter-deklaration/inkomstuppgifter">
+            <Link href="https://sso.skatteverket.se/ms/ms_web/page.do#/privat/skatter-deklaration/inkomstuppgifter">
               inkomstuppgifter från skatteverket
-            </a>{' '}
+            </Link>{' '}
             till och med November.
-          </p>
+          </Typography>
           <TextInput
             label="Bruttolön"
             type="number"
@@ -91,37 +84,41 @@ const CalculateDecemberSalary = () => {
             onChange={handleErsattningarOchPensionChange}
           />
         </Stack>
-        <Stack>
-          <p>Inkomster totalt: {sekFormatter.format(totalIncome)}</p>
-          <p>
-            <a href="https://www.skatteverket.se/privat/etjansterochblanketter/svarpavanligafragor/inkomstavtjanst/privattjansteinkomsterfaq/narskamanbetalastatliginkomstskattochhurhogarden.5.10010ec103545f243e8000166.html">
+        <Stack spacing={2}>
+          <Typography variant="body1">
+            Inkomster totalt: {sekFormatter.format(totalIncome)}
+          </Typography>
+          <Typography variant="body1">
+            <Link href="https://www.skatteverket.se/privat/etjansterochblanketter/svarpavanligafragor/inkomstavtjanst/privattjansteinkomsterfaq/narskamanbetalastatliginkomstskattochhurhogarden.5.10010ec103545f243e8000166.html">
               Brytpunkt innan statlig skatt
-            </a>
+            </Link>
             : {sekFormatter.format(StateTaxBreakPoint)}
-          </p>
-          <p>
+          </Typography>
+          <Typography variant="body1">
             Tänk också på för att kunna använda{' '}
-            <a href="https://www.bjornlunden.se/skatteplanering/s%C3%A5-maxar-du-utdelningen-enligt-312-regle__211">
+            <Link href="https://www.bjornlunden.se/skatteplanering/s%C3%A5-maxar-du-utdelningen-enligt-312-regle__211">
               huvudregeln för utdelning måste du minst ta ut
-            </a>{' '}
+            </Link>{' '}
             {sekFormatter.format(HuvudregelnIncomeBreakPoint)}. Detta beloppet
             är baserat på att det är endast du som tar ut lön från företaget.
-          </p>
-          <p>
+          </Typography>
+          <Typography variant="body1">
             Föreslagen bruttolön i december:{' '}
-            <b>{sekFormatter.format(suggestedDecSalary)}</b>
-          </p>
-          <p>
+            <Typography sx={{ fontWeight: 'bold' }}>
+              {sekFormatter.format(suggestedDecSalary)}
+            </Typography>
+          </Typography>
+          <Typography variant="body1">
             Lägsta lön för att kunna använda huvudregeln för utdelning 2022:{' '}
-            <b>
+            <Typography sx={{ fontWeight: 'bold' }}>
               {sekFormatter.format(
                 Math.max(HuvudregelnIncomeBreakPoint - bruttoLon, 0),
               )}
-            </b>
-          </p>
+            </Typography>
+          </Typography>
         </Stack>
-      </Wrapper>
-    </PageWrapper>
+      </Box>
+    </Box>
   );
 };
 
