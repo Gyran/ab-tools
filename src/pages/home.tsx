@@ -1,23 +1,21 @@
-import styled from 'styled-components/macro';
-
-const Wrapper = styled.div``;
+import { Box, Link, Typography } from '@mui/material';
 
 const HomePage = () => {
   return (
-    <Wrapper>
-      <p>
+    <Box>
+      <Typography variant="body1">
         Små verktyg som kan vara smidiga för dig som driver ett AB (eller annan
         typ av bolag).
-      </p>
-      <p>
+      </Typography>
+      <Typography variant="body1" mt={2}>
         Koden till denna sida finns tillgänglig på{' '}
-        <a href="https://github.com/Gyran/ab-tools">
+        <Link href="https://github.com/Gyran/ab-tools">
           https://github.com/Gyran/ab-tools
-        </a>{' '}
+        </Link>{' '}
         så har du några tankar eller ser något fel så hoppa gärna in där och
         hjälp till eller skriv en rad.
-      </p>
-    </Wrapper>
+      </Typography>
+    </Box>
   );
 };
 
