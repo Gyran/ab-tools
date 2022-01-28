@@ -104,13 +104,13 @@ const CalculateDecemberSalary = () => {
           </Typography>
           <Typography variant="body1">
             Föreslagen bruttolön i december:{' '}
-            <Typography sx={{ fontWeight: 'bold' }}>
+            <Typography component="span" sx={{ fontWeight: 'bold' }}>
               {sekFormatter.format(suggestedDecSalary)}
             </Typography>
           </Typography>
           <Typography variant="body1">
             Lägsta lön för att kunna använda huvudregeln för utdelning 2022:{' '}
-            <Typography sx={{ fontWeight: 'bold' }}>
+            <Typography component="span" sx={{ fontWeight: 'bold' }}>
               {sekFormatter.format(
                 Math.max(HuvudregelnIncomeBreakPoint - bruttoLon, 0),
               )}

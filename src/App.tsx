@@ -96,10 +96,7 @@ function App() {
               {/* <MyNavLink to="/moms">Momssnurra</MyNavLink> */}
             </List>
           </Drawer>
-          <Box
-            component="main"
-            sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-          >
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <Toolbar />
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
