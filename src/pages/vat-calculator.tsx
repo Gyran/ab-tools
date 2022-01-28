@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { Stack } from '../components/layout';
+import { Stack, Typography } from '@mui/material';
 import TextInput from '../components/text-input';
 
 type Props = {};
@@ -37,7 +37,7 @@ const VatCalculator = (props: Props) => {
   );
 
   return (
-    <Stack>
+    <Stack spacing={2}>
       <TextInput
         label="Momssats (%)"
         type="number"
@@ -56,7 +56,9 @@ const VatCalculator = (props: Props) => {
         value={(exclVat + vatSum).toString()}
         onChange={handleIncVatChange}
       />
-      <div>Moms: {Number.isFinite(vatSum) ? vatSum.toFixed(2) : '-'} kr</div>
+      <Typography variant="body1">
+        Moms: {Number.isFinite(vatSum) ? vatSum.toFixed(2) : '-'} kr
+      </Typography>
     </Stack>
   );
 };
