@@ -1,45 +1,14 @@
 import { useCallback, useState } from 'react';
-import styled from 'styled-components/macro';
 import InvoiceQRCode, {
   PaymentMethodType,
 } from '../components/invoice-qr-code.tsx';
 import TextInput from '../components/text-input';
-import { Stack } from '../components/layout';
+import { Box, Typography, Stack } from '@mui/material';
 
 const QR_CODE_WIDTH = 300;
 const SKV_BG_NUMBER = '5050-1055';
 
 const OCR_LOCAL_STORAGE_KEY = 'SKV_OCR';
-
-const PageWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 300px 1fr;
-`;
-const QRPagePartWrapper = styled.div`
-  padding: 50px;
-  display: flex;
-  justify-content: center;
-`;
-const QRWrapper = styled.div`
-  position: relative;
-  width: ${QR_CODE_WIDTH}px;
-  height: ${QR_CODE_WIDTH}px;
-`;
-
-const DimmingOverlay = styled.div`
-  padding: 50px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: black;
-  opacity: 0.9;
-`;
 
 const SKVQRCodePage = () => {
   const [ocrInput, setOCRInput] = useState(() => {
@@ -67,15 +36,15 @@ const SKVQRCodePage = () => {
   const ocr = parseInt(ocrInput, 10);
 
   return (
-    <PageWrapper>
-      <div>
-        <h2>Skattekonto QR-kod</h2>
-        <p>
+    <Box sx={{ display: 'grid', gridTemplateColumns: '300px 1fr' }}>
+      <Box>
+        <Typography variant="h2">Skattekonto QR-kod</Typography>
+        <Typography variant="body1" mt={2}>
           Använd denna sida för att autoifylla en betalning till ditt
           skattekonto genom att scanna qr koden. Glöm inte att verifiera det som
           står i din bank innan du gör någon betalning.
-        </p>
-        <Stack>
+        </Typography>
+        <Stack mt={2} spacing={2}>
           <TextInput
             label="OCR"
             type="number"
@@ -89,11 +58,19 @@ const SKVQRCodePage = () => {
             value={amountInput}
             step={0.1}
           />
-          <div>BG kontonummer: {SKV_BG_NUMBER}</div>
+          <Typography variant="body1">
+            BG kontonummer: {SKV_BG_NUMBER}
+          </Typography>
         </Stack>
-      </div>
-      <QRPagePartWrapper>
-        <QRWrapper>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Box width={QR_CODE_WIDTH} height={QR_CODE_WIDTH} position={'relative'}>
           <InvoiceQRCode
             width={QR_CODE_WIDTH}
             iref={ocr}
@@ -102,13 +79,31 @@ const SKVQRCodePage = () => {
             pt={PaymentMethodType.BG}
           />
           {!Number.isFinite(amount) && (
-            <DimmingOverlay>
-              Fyll i alla fält för att få en giltig QR-kod
-            </DimmingOverlay>
+            <Box
+              sx={{
+                p: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                display: 'flex',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'black',
+                opacity: 0.9,
+                color: 'white',
+              }}
+            >
+              <Typography variant="overline">
+                Fyll i alla fält för att få en giltig QR-kod
+              </Typography>
+            </Box>
           )}
-        </QRWrapper>
-      </QRPagePartWrapper>
-    </PageWrapper>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
