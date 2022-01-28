@@ -1,13 +1,5 @@
-import React, { useCallback, ChangeEvent } from 'react';
-import styled from 'styled-components';
-
-const StyledWrapper = styled.div``;
-const StyledInput = styled.input``;
-const StyledLabel = styled.label`
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-`;
+import { useCallback, ChangeEvent } from 'react';
+import { TextField } from '@mui/material';
 
 type Props = {
   label: string;
@@ -20,22 +12,20 @@ const TextInput = (props: Props) => {
   const { label, onChange, value, type = 'text', step } = props;
 
   const handleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLInputElement>, ...b: any) => {
       onChange(e.currentTarget.value);
     },
     [onChange],
   );
 
   return (
-    <StyledWrapper>
-      <StyledLabel>{label}</StyledLabel>
-      <StyledInput
-        onChange={handleChange}
-        type={type}
-        value={value}
-        step={step}
-      />
-    </StyledWrapper>
+    <TextField
+      label={label}
+      value={value}
+      onChange={handleChange}
+      type={type}
+      inputProps={{ step }}
+    />
   );
 };
 
