@@ -16,14 +16,14 @@ const VatCalculator = (props: Props) => {
   const exclVat = useMemo(() => parseFloat(exclVatInput), [exclVatInput]);
   const vatSum = useMemo(() => exclVat * vatRate, [exclVat, vatRate]);
 
-  const handleVatRangeChange = useCallback((value) => {
+  const handleVatRangeChange = useCallback((value: string) => {
     setVatRateInput(value);
   }, []);
-  const handleExclVatChange = useCallback((value) => {
+  const handleExclVatChange = useCallback((value: string) => {
     setExclVatInput(value);
   }, []);
   const handleIncVatChange = useCallback(
-    (value) => {
+    (value: string) => {
       const parsedInc = parseFloat(value);
       if (Number.isFinite(parsedInc)) {
         const calcExcl = parsedInc / (1 + vatRate);
