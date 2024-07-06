@@ -27,6 +27,9 @@ import theme from './styling/theme';
 const DrawerWidth = 240;
 
 const SKVQRCodePage = React.lazy(() => import('./pages/skv-qrcode-page'));
+const InvoiceQRCodePage = React.lazy(
+  () => import('./pages/invoice-qrcode-page'),
+);
 const BokioBackupPage = React.lazy(() => import('./pages/bokio-backup-page'));
 const MomsSnurraPage = React.lazy(() => import('./pages/vat-calculator'));
 const HomePage = React.lazy(() => import('./pages/home'));
@@ -91,6 +94,7 @@ function App() {
             <List>
               <MyNavLink to="/">Hem</MyNavLink>
               <MyNavLink to="/skv-qr">Skattekonto QR</MyNavLink>
+              <MyNavLink to="/invoice-qr">Faktura QR</MyNavLink>
               <MyNavLink to="/bokio-backup">Bokio Backup</MyNavLink>
               <MyNavLink to="/december-lon">Decemberlön</MyNavLink>
               {/* <MyNavLink to="/moms">Momssnurra</MyNavLink> */}
@@ -102,6 +106,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/skv-qr" element={<SKVQRCodePage />} />
+                <Route path="/invoice-qr" element={<InvoiceQRCodePage />} />
                 <Route path="/bokio-backup" element={<BokioBackupPage />} />
                 <Route path="/moms" element={<MomsSnurraPage />} />
                 <Route
